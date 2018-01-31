@@ -1,5 +1,5 @@
 # GIS_5577_week3
-This repository contains the Open Office power point lecture
+This repository contains the Open Office lecture
 
 Database Management
 
