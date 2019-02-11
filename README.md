@@ -1,13 +1,18 @@
-# GIS_5577_week3
+# GIS 5577 Week 3
 This repository contains the Open Office lecture
 
-Database Management
+### Purpose (Database Management)
+1. Understand Create Read Update Delete (CRUD)
+1. Steps for normalization
+1. PSQL functions
 
-# Readings
+### Readings
 1. Chapter 1 of Mastering PostGIS
 
-2. Common Table Expressions
-https://www.essentialsql.com/introduction-common-table-expressions-ctes/
 
-3. Sub Queries
-https://www.tutorialspoint.com/sql/sql-sub-queries.htm
+### Additional materials
+1. [aggregate functions](https://www.postgresql.org/docs/10/functions-aggregate.html)
+1. [string functions](https://www.postgresql.org/docs/10/functions-string.html)
+1. [date time functions](https://www.postgresql.org/docs/10/functions-datetime.html)
+
+
