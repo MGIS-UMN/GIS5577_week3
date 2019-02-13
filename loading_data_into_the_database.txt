@@ -1,0 +1,26 @@
+First open a windows prompt, by going to the start menu and typing "cmd"
+
+Next open find the psql file
+C:\Program Files\PostgreSQL\9.6\bin
+
+In the command prompt change the directory by typing "cd" and then the path "C:\Program Files\PostgreSQL\9.6\bin"
+
+c:\>cd C:\Program Files\PostgreSQL\9.6\bin
+
+You should be able to type "psql" 
+
+To connect to the server you will need to specify your host address, username, database
+
+C:\Program Files\PostgreSQL\9.6\bin>psql -h 149.165.170.114 -U <username> -d <database>
+
+To load the data simply add the "-c" command for copying the data into the table
+
+"\COPY <tableName> FROM 'csvPath' WITH CSV HEADER;
+-- The "\" is important 
+
+Example of a command below
+C:\Program Files\PostgreSQL\9.6\bin>psql -h 149.165.170.114 -U david -d david -c "COPY iowa_liquor_sales FROM 'C:\work\GIS5577\GIS5577_lab2\iowa_liquor_sales.csv' WITH CSV HEADER;"
+
+
+
+
