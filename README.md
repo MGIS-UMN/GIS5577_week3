@@ -1,5 +1,5 @@
 # GIS 5577 Week 3
-This repository contains the Open Office lecture
+This repository contains the Open Office Slides/PowerPoint
 
 ### Purpose (Database Management)
 1. Understand Create Read Update Delete (CRUD)
