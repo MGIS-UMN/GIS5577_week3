@@ -1,0 +1,217 @@
+Notes for February 2, 2021
+
+Windows/PC Command Line run PostgreSQL
+cd [file path to postgresql executable directory] (exe in bin folder)
+if your PostgreSQL in another drive other than the “C:” drive, must type name of new drive first without anything else to switch drives
+psql 
+-h 129.114.17.71 -d x500 -U x500 -p 5432 (this connects to your database in class server)
+
+Host = -h 129.114.17.71
+Database = -d x500 
+Port = -p 5432
+User = -U x500 
+Pswd = your password (try student if you forgot)
+
+Load a file
+Psql -h 129.114.17.71 -d x500 -U x500 -p 5432 -f  “absolute file path”
+
+Using command line to create table and load data into table
+DROP TABLE IF EXISTS census_tracts_2000_diversity;
+
+CREATE TABLE census_tracts_2000_diversity ( 
+[put column name here, data type of column here],
+);
+
+\COPY census_tracts_2000_diversity from 'c:\git\GIS5577_lab1\2000_census_tracts_diversity_cleaned.csv' WITH CSV Header
+
+
+Codd's rules for a RDBMS
+There are 12 rules
+Not every relational DB follows all 12 rules
+There are good reasons to follow the rules
+There are good reasons to not follow the rules
+
+CRUD
+Create
+Insert
+Copy
+Read
+Update 
+Delete
+
+
+PSQL String Datatypes
+char(#) – number of characters to store
+character(#) – number of characters to store
+varchar(#) – number of characters to store
+character varying(#) – number of characters to store
+text – variable length string
+
+Create Table Statement
+CREATE TABLE family (
+first_name char(15),
+last_name character(15),
+middle_name char
+);
+
+CODE IT
+insert into something (first_name, last_name) VALUES (‘David’ ‘Haynes’);
+insert into something (middle_name) VALUES ('apricot');
+
+PSQL Numeric Datatypes
+bit(#) / varbit(#) – length of the bit string
+smallint – 2byte integer
+int / integer (4 byte integer)
+bigintger (8 byte integer)
+smallserial – auto incrementing integer value (2 byte)
+serial – auto incrementing integer value (4 byte)
+bigserial – auto incrementing integer value ( 8 byte)
+numeric(length,precision) – length is total digits, precision digits after decimal
+double precision – 8 byte floating point number
+real – 4 byte floating point number
+money – currency value
+bool / boolean – true or false
+
+PSQL Date/Time Datatypes
+Date – Displayed ‘YYYY-MM-DD’
+Timestamp – Displayed ‘YYYY-MM-DD HH:MM:SS’
+Timestamp without time zone – Displayed ‘YYYY-MM-DD HH:MM:SS’
+Timestamp with time zone – Displayed ‘YYYY-MM-DD HH:MM:SS-TZ’
+Time – Displayed as ‘HH:MM:SS’ 
+Time without time zone – Displayed as ‘HH:MM:SS’ 
+Time with time zone – Displayed as ‘HH:MM:SS-TZ’
+
+
+
+
+
+
+CANDY DATABASE STARTS HERE
+
+String Functions
+SELECT DISTINCT lower(candy_type)
+FROM candy
+WHERE lower(candy_type) LIKE ‘k%’
+ORDER BY 1
+
+First we make all values in the candy_type column lower case
+Then we select values in candy_type column that begin with the lower case letter k
+Order by 1 sorts the values in the candy_type column to alphabetical order A-Z
+
+Same candy_type values spelled differently (kitkat vs Kit Kat)
+Lets update this
+
+UPDATE candy
+SET candy_type = ‘kitkat’
+WHERE candy_type = ‘Kit Kat’
+
+UPDATE candy
+SET candy_type = 'furry bear'
+WHERE lower(candy_type) = 'gummy bear';
+
+
+UPDATE candy
+SET candy_type = 'Werthers'
+WHERE lower(candy_type) LIKE 'werther%';
+
+Once all are fixed, we can use GROUP BY to get all the candy types
+
+
+
+
+
+
+
+
+
+
+
+
+
+Normalization
+Get rid of duplicate data
+Normal Forms - 1st, 2nd, 3rd	
+A table is in:
+1st Normal Form when
+Primary Key established
+A primary key is a column that has no repeat values (eg: ID column)
+Second Normal Form when
+It is already in 1st normal form
+No repeat columns
+Every attribute (column) is functionally dependent on primary key
+One attribute is functionally dependent on a second attribute if the value of the second attribute determines the value of the first attribute
+So for 2nd normal form to be satisfied, if there is an attribute that could be determined from another attribute that is NOT the primary key, it is not in 2nd normal form.
+If all values of all attributes are only able to be known when using the primary key attribute, it is in 2nd normal form. 
+Third Normal Form when
+It is already in 2nd normal form
+No transitive dependencies
+Ex of a transitive dependencies
+If column A (primary key) is known then we know column B. B is functionally dependent on A. (A → B).
+It is NOT the case that B → A (A is not functionally dependent on B).
+B → C (C is functionally dependent on B).
+Therefore, A → C
+In this case, C is transitively dependent on A. If we know A, we also know C, which is directly related to B but indirectly related to A.
+For 3rd normal form to be satisfied, we cannot know C if we know A. C needs to be directly related to A.
+We need to eliminate the if we know B we know C (B → C).
+We can do this by further splitting up the table(s).
+
+
+DDL statements (DAta definition language) are used to create tables, users, constraints, etc.
+
+
+Notes 
+
+Create table candy(candy_type text, quantity integer, candy_owner varchar(15), calories integer);
+
+grant all on candy to students;
+
+SELECT DISTINCT lower(candy_type)
+from candy
+WHERE lower(candy_type) LIKE '%k' 
+ORDER BY 1
+
+
+INSERT INTO candy VALUES ('kitkat',	5, 'david', 32);
+
+SELECT DISTINCT lower(candy_type), candy_type
+from candy
+ORDER BY 1
+
+-- tootisie, werther, blow pop,  kitkat, good andn plenty, gobstopper, junior mints, lifesavers, warheads
+
+UPDATE candy
+SET candy_type = 'furry bear'
+WHERE lower(candy_type) = 'gummy bear';
+
+
+UPDATE candy
+SET candy_type = 'Werthers'
+WHERE lower(candy_type) LIKE 'werther%';
+-- using the like clause to get multiple rows that were 'werther', 'werthers', 'werthers originals' -- warheads
+
+UPDATE candy
+SET candy_type = 'good and plenty'
+WHERE lower(candy_type) = 'good and plenty' or  lower(candy_type) = 'good n plenty'
+
+
+SELECT
+FROM
+GROUP BY candy_type
+
+--- Starting string functions
+SELECT 1::text, 44,  
+
+SELECT first_name || '****' || last_name
+FROM address_book
+
+SELECT split_part('dogs, cats, alligators', ',', 3) as animal_i_fear
+
+
+SELECT repeat('dogs',3)
+
+SELECT repeat(first_name || '****' || last_name, 3)
+-- repeat takes a string/text/varchar
+-- second parameter is a whole number
+FROM address_book
+
+
