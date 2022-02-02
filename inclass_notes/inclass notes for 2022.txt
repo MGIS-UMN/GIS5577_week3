@@ -1,0 +1,160 @@
+https://github.com/MGIS-UMN/GIS5577_week3
+
+Homework
+Capitalize reserved words
+Add comments about why you’re doing what you’re doing
+Don’t worry about spacing & indents - just make it readable w/o endless scrolling
+
+
+
+---  Find the census tracts with the highest male to female ratio
+
+select state_name, male, female, male::float/(male+female) as ratios 
+-- male::float/nullif((male+female),0) as ratio
+from census_tracts_2000_diversity ctd
+where male > 0 or female > 0
+-- We knonw that there are census tracts with no people and that causes an error
+-- where male is not null and female is not null
+order by 4 desc
+
+
+select
+  state_name, --- Kjlkjdf
+  abb 
+  male,
+  female,
+from 
+
+
+Select state_name
+Into newtable
+From mytable
+
+  
+  
+select column_name 
+from information_schema."columns" c 
+where table_name ='census_tracts_2000_diversity_2' and column_name like '%indian%'
+
+
+
+Mac PSQL
+Sudo chmod +x ./psql
+--- local computer password (Not postgresql)
+
+ ./psql -h spatialdb.gisandbox.org -d <DB NAME HERE> -U <USER NAME HERE> -f (OPTIONAL; TO RUN SCRIPT)
+
+
+psql -h spatialdb.gisandbox.org -d [x500] -U [x500] 
+\q -- quit from the psql console
+
+psql -h spatialdb.gisandbox.org -d [x500] -U [x500] -f "correct file path"
+
+
+SELECT  total_pop
+FROm census_tracts
+WHERE male >0 and female >0
+
+
+INSERT INTO halloween_candy (candy_brand_name, quantity, chocolate) 
+VALUES
+('twix',2,True);
+
+
+----- Class notes
+
+create table halloween_candy(
+candy_brand_name varchar(50),
+quantity smallint,
+chocolate boolean	
+);
+
+GRANT ALL ON halloween_candy TO students;
+GRANT ALL on ALL SEQUENCES in SCHEMA public TO students;
+
+INSERT INTO halloween_candy (candy_brand_name, quantity, chocolate) 
+VALUES
+('twix',2,True),('Twix',34,True),('twixes',2,True),('KITKAT',55,True),('gummie bears',25,True),
+('Snikcers',44,True),('orange slices',44,True),('Good and Plenty',2,False);
+;
+
+select candy_brand_name, quantity, chocolate
+from halloween_candy
+
+
+select candy_brand_name
+from halloween_candy
+where lower(candy_brand_name) like '%gum%'
+
+
+select distinct candy_brand_name
+from halloween_candy
+order by candy_brand_name asc
+
+
+
+UPDATE halloween_candy
+set candy_brand_name = 'Orange Slices'
+where candy_brand_name = 'orange slices'
+
+select distinct candy_brand_name, chocolate
+from halloween_candy
+order by 1
+
+select candy_brand_name
+from halloween_candy
+where candy_brand_name LIKE 'twi%'
+
+
+INSERT INTO halloween_candy (candy_brand_name, quantity, chocolate) 
+VALUES
+('smarrties',34,True),('Saur Patch kids', 1, False);
+
+
+INSERT INTO halloween_candy (candy_brand_name, quantity, chocolate) 
+VALUES
+('Apple Slices ',434,True)
+,('Almen Joy', 1, False),('Almen NoJoy', 11232, True) ;
+
+select candy_brand_name, count(1) as how_many_entered
+from halloween_candy
+group by candy_brand_name
+order by 1
+
+delete from halloween_candy
+where candy_brand_name = 'Apple Slices'
+
+select *
+from halloween_candy
+
+ALTER TABLE halloween_candy ADD candy_int integer;
+ALTER TABLE halloween_candy ADD candy_id bigserial;
+
+INSERT INTO halloween_candy (candy_brand_name, quantity, chocolate) 
+VALUES
+('Almond Joy',999,True)
+
+-- Find the record that I just added
+select *
+from halloween_candy
+where candy_brand_name = 'Almond Joy'
+
+--- Write the delete statement
+delete from halloween_candy
+where candy_brand_name = 'Almond Joy' and candy_id = 69
+-- deleted 66 and 69
+
+
+
+
+INSERT INTO halloween_candy (candy_brand_name, quantity, chocolate) 
+VALUES
+('Almond Joy',9999,True)
+
+SELECT 'dogs, cats, alligators', split_part('dogs, cats, alligators', ',', 3) as animal_i_fear
+
+SELECT date_part('month', '01-01-2015'::date) as year, '01-01-2015'::date
+
+
+
+
