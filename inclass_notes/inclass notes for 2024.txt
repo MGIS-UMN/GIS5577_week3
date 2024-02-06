@@ -1,0 +1,122 @@
+Clone week 3 repo
+https://github.com/MGIS-UMN/GIS5577_week3
+
+
+SELECT county_name, sum(Male_Under_5_years + Male_5_to_9_years + Male_10_to_14_years + Male_15_to_17_years) as men_under_18, sum(Male_5_to_9_years) as male_5_9
+FROM mn_census_tracts_2000
+GROUP BY county_name
+
+
+SELECT sum(Male_5_to_9_years)
+FROM mn_census_tracts_2000
+
+select county_name, Male_5_to_9_years --- this code created the bottom error
+FROM mn_census_tracts_2000
+GROUP BY county_name
+
+ERROR:  column "mn_census_tracts_2000.male_5_to_9_years" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select county_name, Male_5_to_9_years
+
+
+select county_name, county_code, sum(Male_5_to_9_years)
+FROM mn_census_tracts_2000
+GROUP BY county_name  -- THis will generate the error below
+
+ERROR:  column "mn_census_tracts_2000.county_code" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select county_name, county_code, sum(Male_5_to_9_years)
+
+
+select county_name, county_code, sum(Male_5_to_9_years)
+FROM mn_census_tracts_2000
+GROUP BY county_name, county_code
+ORDER BY  sum(Male_5_to_9_years) DESC
+
+
+select county_name, county_code, sum(Male_5_to_9_years) as total_male_5_to_9, sum(FeMale_5_to_9_years) as total_female_5_to_9
+FROM mn_census_tracts_2000
+GROUP BY county_name, county_code
+ORDER BY county_name
+
+
+select county_name, county_code, sum(Male_5_to_9_years) as total_male_5_to_9, sum(FeMale_5_to_9_years) as total_female_5_to_9,
+sum(Male_5_to_9_years)/sum(Male_Under_5_years + Male_5_to_9_years + Male_10_to_14_years + Male_15_to_17_years)::float
+FROM mn_census_tracts_2000
+GROUP BY county_name, county_code
+ORDER BY county_name
+
+
+select county_name, array_agg(county_code::text)
+-- sum(Male_5_to_9_years) as total_male_5_to_9, sum(FeMale_5_to_9_years) as total_female_5_to_9,
+-- sum(Male_5_to_9_years)/sum(Male_Under_5_years + Male_5_to_9_years + Male_10_to_14_years + Male_15_to_17_years)::float
+FROM mn_census_tracts_2000
+GROUP BY county_name
+
+
+select count(1)
+FROM mn_census_tracts_2000
+-- GROUP BY county_name
+
+
+select * 
+FROM mn_census_tracts_2000
+WHERE lower(county_name) LIKE 'a%'
+
+
+select * 
+FROM mn_census_tracts_2000
+WHERE county_name LIKE '%A%'
+-- 84 records with 'a%'
+-- 617 records '%a%'
+-- capitalizations
+-- lower() & upper() which we can use for converting the text to a single format
+
+
+SELECT *
+FROM mn_census_tracts_2000
+LIMIT 10 -- SQL SERVER TOP 10
+
+
+SELECT 
+FROM mytable
+WHERE my
+
+as myalias
+
+sum() myalias
+
+
+CREATE TABLE family_names (
+first_name char(15),
+last_name character(15),
+middle_name char
+);
+
+INSERT into family_names (first_name, last_name) VALUES ('David','Haynes');
+
+
+CREATE TABLE store_items (
+item_name text,
+item_owner text,
+item_price money
+);
+
+
+
+
+select *
+FROM store_items
+
+SELECT date_part('month', purchased_date),date_part('year', purchased_date), sum(item_price)
+FROM store_items
+group by date_part('month', purchased_date),date_part('year', purchased_date)
+
+SELECT purchased_date, sum(item_price)
+FROM store_items
+group by purchased_date
+
+
+SELECT date_part('month', purchased_date), sum(item_price)
+FROM store_items
+group by date_part('month', purchased_date)
+
+
